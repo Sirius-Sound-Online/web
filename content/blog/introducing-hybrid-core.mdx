@@ -1,0 +1,36 @@
+---
+title: "Inside the hybrid-core pickup architecture"
+excerpt: "Finite-element simulations, graphene shielding, and resonant tuning for sub-2dB hum differentials."
+date: 2024-03-12
+author: "Elena Kovacs"
+tags:
+  - research
+  - measurements
+featureType: "Research"
+heroImage: "/images/blog/lab-hybrid-core.svg"
+pollId: "clwxyz123"
+locale: "en"
+---
+
+import FormbricksSurvey from "@/components/formbricks-survey";
+import BlogImage from "@/components/blog-image";
+
+<BlogImage src="/images/blog/lab-hybrid-core.svg" alt="Hybrid core disassembled" caption="Disassembled prototype with hybrid ferrite core." />
+
+We built Sirius/Serious Sound pickups to solve a persistent problem: **noise floors that spike when you lean into expressive playing**. Conventional single coils force us to choose between bandwidth and hum rejection; stacked coils dampen the shimmer we love.
+
+Our prototype uses a hybrid core with graphene shielding and actively tuned eddy current paths. Here are the three breakthroughs:
+
+1. **Phase-stable flux control**: we modelled the pickup as a coupled RF circuit and tuned the resonance via modular bobbins.
+2. **Adaptive load shaping**: onboard micro load lets you sweep Q factors without recabling.
+3. **Ultra-low-noise windings**: rewinding with silver-plated copper and cryo-treatment improved conductivity by 6%.
+
+## Measurement stack
+
+We run swept sine, THD, and noise profiling via our in-house rig. The chart below shows the THD delta compared to a control single coil.
+
+<FormbricksSurvey surveyId="clwxyz123" mode="inline" />
+
+## Join the conversation
+
+Leave a comment through Giscus below and tell us the sonic contexts you want to test first. The top-voted requests become **Tone Lab** presets next sprint.

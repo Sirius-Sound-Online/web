@@ -1,0 +1,19 @@
+<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgBlog" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1014" />
+      <stop offset="100%" stop-color="#05070A" />
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bgBlog)" />
+  <g stroke="#37E7FF" stroke-opacity="0.35" stroke-width="14">
+    <path d="M160 180 Q 480 40 820 160 T 1120 120" fill="none" />
+    <path d="M140 300 Q 520 120 900 260 T 1150 220" fill="none" />
+    <path d="M120 460 Q 540 240 940 420 T 1180 360" fill="none" />
+  </g>
+  <circle cx="640" cy="420" r="220" fill="none" stroke="#37E7FF" stroke-width="10" stroke-opacity="0.4" />
+  <circle cx="640" cy="420" r="70" fill="#37E7FF" opacity="0.18" />
+  <text x="80" y="640" font-family="'Inter', sans-serif" font-size="40" fill="#E5E7EB">
+    Hybrid core disassembled — ferrite + graphene shielding
+  </text>
+</svg>

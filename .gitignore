@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+.vercel
+.env
+.env.local
+.env.development
+.env.production
+.contentlayer
+prisma/dev.db
+.DS_Store
+.idea
+.vscode
