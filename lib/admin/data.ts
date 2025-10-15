@@ -314,13 +314,28 @@ export async function getTableData(tableName: TableName, page = 1, limit = 50) {
     throw new Error(`Invalid table name: ${tableName}`);
   }
 
+  // Determine orderBy field based on table structure
+  // Account, Session, and VerificationToken don't have createdAt
+  const getOrderBy = (table: string) => {
+    switch (table) {
+      case "account":
+        return { provider: "asc" }; // Order by provider for accounts
+      case "session":
+        return { expires: "desc" }; // Order by expiry for sessions
+      case "verificationToken":
+        return { expires: "desc" }; // Order by expiry for tokens
+      case "pickupSample":
+        return { order: "asc" }; // Use the order field for samples
+      default:
+        return { createdAt: "desc" }; // Default to createdAt for tables that have it
+    }
+  };
+
   const [data, total] = await Promise.all([
     model.findMany({
       skip: (page - 1) * limit,
       take: limit,
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: getOrderBy(tableName),
     }),
     model.count(),
   ]);
