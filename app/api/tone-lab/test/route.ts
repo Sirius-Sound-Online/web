@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function POST() {
   try {
-    // Create new anonymous test session
+    // Get the user session if they're logged in
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.id;
+
+    // Create new test session (with userId if logged in)
     const test = await prisma.toneLabTest.create({
-      data: {},
+      data: {
+        userId,
+      },
     });
 
     return NextResponse.json({ testId: test.id, sessionId: test.sessionId });
