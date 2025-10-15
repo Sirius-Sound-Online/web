@@ -5,11 +5,17 @@ import { useState, useEffect } from "react";
 
 export function ShareButtons({ title }: { title: string }) {
   const pathname = usePathname();
-  const [url, setUrl] = useState(`https://sirius-sound.example${pathname}`);
+  const [url, setUrl] = useState("");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     setUrl(window.location.origin + pathname);
   }, [pathname]);
+
+  if (!mounted) {
+    return <div className="h-10 animate-pulse bg-white/5 rounded-full w-64" />;
+  }
 
   const twitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
   const linkedin = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;

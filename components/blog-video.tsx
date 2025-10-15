@@ -1,3 +1,5 @@
+"use client";
+
 type Props = {
   src?: string;
   youtube?: string;
