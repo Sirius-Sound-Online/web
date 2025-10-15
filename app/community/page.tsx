@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 export const metadata: Metadata = {
   title: "Community & accounts",
   description:
-    "Create an account, manage your profile, invite collaborators, and vote on the Sirius/Serious Sound roadmap.",
+    "Create an account, manage your profile, invite collaborators, and vote on the Sirius Sound roadmap.",
 };
 
 export default async function CommunityPage() {
@@ -32,7 +32,7 @@ export default async function CommunityPage() {
                 : "Sign in to sync Tone Lab presets, enter the waitlist, and post under your maker handle."}
             </p>
             <Link
-              href={session ? "/community/profile" : "/api/auth/signin"}
+              href={session ? "/community/profile" : "/signin"}
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-semibold text-black transition hover:bg-accent-600"
             >
               {session ? "Go to profile" : "Sign in / Join"}

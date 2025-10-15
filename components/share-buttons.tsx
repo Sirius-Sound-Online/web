@@ -1,10 +1,16 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export function ShareButtons({ title }: { title: string }) {
   const pathname = usePathname();
-  const url = typeof window !== "undefined" ? window.location.origin + pathname : `https://sirius-sound.example${pathname}`;
+  const [url, setUrl] = useState(`https://sirius-sound.example${pathname}`);
+
+  useEffect(() => {
+    setUrl(window.location.origin + pathname);
+  }, [pathname]);
+
   const twitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
   const linkedin = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
 

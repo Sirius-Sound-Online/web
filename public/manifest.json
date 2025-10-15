@@ -1,16 +1,16 @@
 {
-  "name": "Sirius/Serious Sound",
+  "name": "Sirius Sound",
   "short_name": "SiriusSound",
-  "description": "Pre-release hub for Sirius/Serious Sound pickups: tone lab, roadmap, blog, and community.",
+  "description": "Pre-release hub for Sirius Sound Guitar Pickups: tone lab, roadmap, blog, and community.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#040506",
   "theme_color": "#00e5ff",
   "icons": [
     {
-      "src": "/images/logo-light.svg",
+      "src": "/images/logo.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
   ]
 }

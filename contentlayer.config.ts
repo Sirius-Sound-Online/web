@@ -15,8 +15,7 @@ export const BlogPost = defineDocumentType(() => ({
     ogImage: { type: "string", required: false },
     featureType: { type: "string", required: false },
     heroImage: { type: "string", required: false },
-    pollId: { type: "string", required: false },
-    locale: { type: "enum", options: ["en", "ru"], default: "en" }
+    pollId: { type: "string", required: false }
   },
   computedFields: {
     slug: {

@@ -9,15 +9,11 @@ tags:
 featureType: "Research"
 heroImage: "/images/blog/lab-hybrid-core.svg"
 pollId: "clwxyz123"
-locale: "en"
 ---
-
-import FormbricksSurvey from "@/components/formbricks-survey";
-import BlogImage from "@/components/blog-image";
 
 <BlogImage src="/images/blog/lab-hybrid-core.svg" alt="Hybrid core disassembled" caption="Disassembled prototype with hybrid ferrite core." />
 
-We built Sirius/Serious Sound pickups to solve a persistent problem: **noise floors that spike when you lean into expressive playing**. Conventional single coils force us to choose between bandwidth and hum rejection; stacked coils dampen the shimmer we love.
+We built Sirius Sound Guitar Pickups to solve a persistent problem: **noise floors that spike when you lean into expressive playing**. Conventional single coils force us to choose between bandwidth and hum rejection; stacked coils dampen the shimmer we love.
 
 Our prototype uses a hybrid core with graphene shielding and actively tuned eddy current paths. Here are the three breakthroughs:
 
@@ -29,8 +25,36 @@ Our prototype uses a hybrid core with graphene shielding and actively tuned eddy
 
 We run swept sine, THD, and noise profiling via our in-house rig. The chart below shows the THD delta compared to a control single coil.
 
+<BlogImage src="/images/blog/lab-hybrid-core.svg" alt="THD comparison chart" caption="THD measurements: hybrid-core vs. traditional single coil" />
+
+### Media Examples
+
+This section demonstrates how to embed different media types in blog posts:
+
+**YouTube Video:**
+
+<BlogVideo youtube="dQw4w9WgXcQ" caption="Example: YouTube video embed (Rick Astley)" />
+
+**Note**: To add your own media files:
+- Place video files in `/public/video/` directory
+- Place audio files in `/public/audio/` directory
+- Reference them like: `<BlogVideo src="/video/your-file.mp4" />` or `<audio controls src="/audio/your-file.mp3" />`
+
+### User Feedback Survey
+
+Below is a Formbricks survey component. To see it working:
+1. Create a survey in your Formbricks account
+2. Get the survey ID
+3. Replace `surveyId="clwxyz123"` with your actual survey ID
+
 <FormbricksSurvey surveyId="clwxyz123" mode="inline" />
+
+**Note**: The survey shows "Loading survey..." because the `surveyId` is a placeholder. In production, you would use a real survey ID from your Formbricks dashboard.
 
 ## Join the conversation
 
-Leave a comment through Giscus below and tell us the sonic contexts you want to test first. The top-voted requests become **Tone Lab** presets next sprint.
+Leave a comment below! Tell us the sonic contexts you want to test first. The top-voted requests become **Tone Lab** presets next sprint.
+
+**Note about commenting**: You can comment using your Google, Facebook, Twitter account, or create a free Disqus account. No GitHub required!
+
+<DisqusComments slug="introducing-hybrid-core" title="Inside the hybrid-core pickup architecture" />

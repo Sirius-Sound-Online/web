@@ -2,6 +2,9 @@
 
 import { useEffect } from "react";
 
+const FORMBRICKS_URL = process.env.NEXT_PUBLIC_FORMBRICKS_URL ?? "https://app.formbricks.com";
+const FORMBRICKS_ENV = process.env.NEXT_PUBLIC_FORMBRICKS_ENV ?? "";
+
 type Props = {
   surveyId: string;
   mode?: "inline" | "popover";
@@ -15,8 +18,8 @@ export default function FormbricksSurvey({ surveyId, mode = "inline" }: Props) {
     script.id = scriptId;
     script.async = true;
     script.src = "https://cdn.formbricks.com/js/snippet.js";
-    script.dataset.apiHost = process.env.NEXT_PUBLIC_FORMBRICKS_URL ?? "https://app.formbricks.com";
-    script.dataset.environmentId = process.env.NEXT_PUBLIC_FORMBRICKS_ENV ?? "";
+    script.dataset.apiHost = FORMBRICKS_URL;
+    script.dataset.environmentId = FORMBRICKS_ENV;
     document.body.appendChild(script);
   }, []);
 

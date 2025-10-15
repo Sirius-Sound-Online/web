@@ -84,3 +84,41 @@ model Order {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+model PickupSample {
+  id           String          @id @default(cuid())
+  name         String          // e.g. "Sirius Prototype A"
+  guitar       String          // e.g. "Fender Stratocaster"
+  position     String          // e.g. "Neck"
+  description  String?         // Technical details
+  audioFile    String          // Path to audio file
+  order        Int             // Display order in test
+  active       Boolean         @default(true)
+  isSirius     Boolean         @default(false) // True for Sirius pickups
+  ratings      ToneLabRating[]
+  createdAt    DateTime        @default(now())
+}
+
+model ToneLabTest {
+  id            String          @id @default(cuid())
+  sessionId     String          @unique @default(cuid()) // Anonymous session ID
+  userId        String?         // Optional if user is logged in
+  ratings       ToneLabRating[]
+  completed     Boolean         @default(false)
+  completedAt   DateTime?
+  createdAt     DateTime        @default(now())
+}
+
+model ToneLabRating {
+  id              String        @id @default(cuid())
+  testId          String
+  test            ToneLabTest   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  sampleId        String
+  sample          PickupSample  @relation(fields: [sampleId], references: [id], onDelete: Cascade)
+  rating          Int           // 1-10
+  guessedName     String?       // What user thought it was
+  playCount       Int           @default(0)
+  createdAt       DateTime      @default(now())
+
+  @@unique([testId, sampleId])
+}

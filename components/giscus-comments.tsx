@@ -2,11 +2,16 @@
 
 import Giscus from "@giscus/react";
 
-export function GiscusComments({ locale = "en" }: { locale?: string }) {
-  const repo = (process.env.NEXT_PUBLIC_GISCUS_REPO ?? "Sirius-Sound-Online/web") as `${string}/${string}`;
-  const repoId = process.env.NEXT_PUBLIC_GISCUS_REPO_ID ?? "";
-  const category = process.env.NEXT_PUBLIC_GISCUS_CATEGORY ?? "Announcements";
-  const categoryId = process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID ?? "";
+const GISCUS_REPO = process.env.NEXT_PUBLIC_GISCUS_REPO ?? "Sirius-Sound-Online/web";
+const GISCUS_REPO_ID = process.env.NEXT_PUBLIC_GISCUS_REPO_ID ?? "";
+const GISCUS_CATEGORY = process.env.NEXT_PUBLIC_GISCUS_CATEGORY ?? "Announcements";
+const GISCUS_CATEGORY_ID = process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID ?? "";
+
+export function GiscusComments() {
+  const repo = GISCUS_REPO as `${string}/${string}`;
+  const repoId = GISCUS_REPO_ID;
+  const category = GISCUS_CATEGORY;
+  const categoryId = GISCUS_CATEGORY_ID;
 
   return (
     <div className="mt-12 rounded-3xl border border-white/10 bg-[#0B0E12] p-6">
@@ -21,7 +26,7 @@ export function GiscusComments({ locale = "en" }: { locale?: string }) {
         emitMetadata="0"
         inputPosition="top"
         theme="dark"
-        lang={locale}
+        lang="en"
       />
     </div>
   );

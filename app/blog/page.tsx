@@ -6,7 +6,7 @@ import { compareDesc } from "date-fns";
 export const metadata: Metadata = {
   title: "Insights & lab notes",
   description:
-    "Dive into hybrid-core research, Tone Lab presets, and roadmap updates from the Sirius/Serious Sound team.",
+    "Dive into hybrid-core research, Tone Lab presets, and roadmap updates from the Sirius Sound team.",
 };
 
 export default function BlogPage() {

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
           currency: "usd",
           unit_amount: 9900,
           product_data: {
-            name: "Sirius/Serious Sound pre-order deposit",
+            name: "Sirius Sound pre-order deposit",
             description: `Hybrid-core pickup reserve (${pickupFormat})`,
           },
         },

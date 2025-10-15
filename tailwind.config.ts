@@ -6,7 +6,8 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './content/**/*.{md,mdx}',
-    './lib/**/*.{ts,tsx}'
+    './lib/**/*.{ts,tsx}',
+    './tone-lab/**/*.{ts,tsx}'
   ],
   theme: {
     extend: {

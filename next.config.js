@@ -1,18 +1,21 @@
 /** @type {import('next').NextConfig} */
 const { withContentlayer } = require('next-contentlayer');
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://giscus.app https://js.stripe.com https://plausible.io https://cdn.formbricks.com",
-      "connect-src 'self' https://api.stripe.com https://plausible.io https://giscus.app https://cdn.formbricks.com",
-      "img-src 'self' data: blob:",
-      "style-src 'self' 'unsafe-inline'",
-      "frame-src https://js.stripe.com https://giscus.app https://cdn.formbricks.com",
+      // Add 'unsafe-eval' in development for HMR/Fast Refresh
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ''} https://*.disqus.com https://*.disquscdn.com https://js.stripe.com https://plausible.io https://cdn.formbricks.com`,
+      "connect-src 'self' https://api.stripe.com https://plausible.io https://*.disqus.com https://*.disquscdn.com https://cdn.formbricks.com",
+      "img-src 'self' data: blob: https://*.disqus.com https://*.disquscdn.com",
+      "style-src 'self' 'unsafe-inline' https://*.disqus.com https://*.disquscdn.com",
+      "frame-src https://js.stripe.com https://*.disqus.com https://disqus.com https://cdn.formbricks.com https://www.youtube.com https://player.vimeo.com",
       "media-src 'self' blob:",
-      "font-src 'self' data:"
+      "font-src 'self' data: https://*.disqus.com https://*.disquscdn.com"
     ].join('; ')
   },
   {
@@ -35,10 +38,6 @@ const securityHeaders = [
 
 const nextConfig = withContentlayer({
   reactStrictMode: true,
-  i18n: {
-    locales: ['en', 'ru'],
-    defaultLocale: 'en'
-  },
   async headers() {
     return [
       {

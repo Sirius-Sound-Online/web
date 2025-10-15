@@ -4,7 +4,7 @@ import PreorderForm from "@/components/preorder-form";
 export const metadata: Metadata = {
   title: "Pre-order",
   description:
-    "Reserve a Sirius/Serious Sound pickup set with manual Stripe capture. Review refundable deposit terms and shipping windows.",
+    "Reserve a Sirius Sound pickup set with manual Stripe capture. Review refundable deposit terms and shipping windows.",
 };
 
 export default function PreorderPage() {

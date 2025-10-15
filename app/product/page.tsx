@@ -33,13 +33,13 @@ export default function ProductPage() {
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "Sirius/Serious Sound Hybrid-Core Pickup",
+    name: "Sirius Sound Hybrid-Core Pickup",
     image: ["https://sirius-sound.example/images/coil-macro.svg"],
     description: "Hybrid-core guitar pickup with adaptive load and graphene shielding.",
     releaseDate: "2024-09-01",
     brand: {
       "@type": "Brand",
-      name: "Sirius/Serious Sound",
+      name: "Sirius Sound",
     },
     offers: {
       "@type": "Offer",

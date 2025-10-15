@@ -27,7 +27,7 @@ export function Hero() {
             Pre-release hub
           </p>
           <h1 className="font-display text-4xl leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Sirius/Serious Sound pickups. <br className="hidden sm:block" />
+            Sirius Sound Guitar Pickups <br className="hidden sm:block" />
             <span className="text-accent">Hyper-clarity without the hum.</span>
           </h1>
           <p className="max-w-xl text-lg text-zinc-300">

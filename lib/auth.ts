@@ -2,6 +2,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import TwitterProvider from "next-auth/providers/twitter";
 import EmailProvider from "next-auth/providers/email";
 import { prisma } from "@/lib/prisma";
 
@@ -11,7 +13,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "database",
   },
   pages: {
-    signIn: "/community",
+    signIn: "/signin",
   },
   providers: [
     GitHubProvider({
@@ -22,14 +24,23 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID ?? "",
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET ?? "",
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID ?? "",
+      clientSecret: process.env.TWITTER_CLIENT_SECRET ?? "",
+      version: "2.0",
+    }),
     EmailProvider({
       from: process.env.EMAIL_FROM,
       sendVerificationRequest: async ({ identifier, url, provider }) => {
         const { sendMail } = await import("@/lib/mailer");
         await sendMail({
           to: identifier,
-          subject: "Your Sirius/Serious Sound magic link",
-          html: `<p>Sign in to Sirius/Serious Sound:</p><p><a href="${url}">${url}</a></p>`,
+          subject: "Your Sirius Sound magic link",
+          html: `<p>Sign in to Sirius Sound:</p><p><a href="${url}">${url}</a></p>`,
         });
       },
     }),
