@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { MediaFile, formatFileSize } from "@/lib/admin/file-operations";
+import { MediaFile, formatFileSize } from "@/lib/admin/media-utils";
 
 type Props = {
   initialImages: MediaFile[];

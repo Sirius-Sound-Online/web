@@ -1,11 +1,12 @@
+/**
+ * Server-side file operations for admin
+ * This file can only be imported by server components and API routes
+ */
+
 import fs from "fs/promises";
 import path from "path";
 import { ALLOWED_IMAGE_TYPES, ALLOWED_VIDEO_TYPES, ALLOWED_AUDIO_TYPES, MAX_FILE_SIZES } from "./constants";
-
-/**
- * File operations utilities for admin
- * Handles blog post and media file management
- */
+import type { MediaFile, MediaCategory } from "./media-utils";
 
 // ============================================
 // BLOG POST OPERATIONS
@@ -130,17 +131,6 @@ export async function deleteBlogPost(slug: string) {
 // ============================================
 // MEDIA FILE OPERATIONS
 // ============================================
-
-export type MediaFile = {
-  name: string;
-  path: string;
-  size: number;
-  type: string;
-  url: string;
-  createdAt: Date;
-};
-
-export type MediaCategory = "images" | "video" | "audio";
 
 export async function getMediaFiles(category: MediaCategory): Promise<MediaFile[]> {
   const publicDir = path.join(process.cwd(), "public", category);
@@ -271,14 +261,4 @@ function getFileType(fileName: string): string {
   };
 
   return typeMap[ext] || "application/octet-stream";
-}
-
-export function formatFileSize(bytes: number): string {
-  if (bytes === 0) return "0 Bytes";
-
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 }
