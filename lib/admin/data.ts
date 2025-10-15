@@ -24,7 +24,6 @@ export async function getAllUsers() {
       accounts: {
         select: {
           provider: true,
-          createdAt: true,
         },
       },
       waitlistEntries: {
