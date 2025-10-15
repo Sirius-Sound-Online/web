@@ -42,14 +42,14 @@ export default async function DatabasePage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tableCounts.map((table) => (
           <Link
-            key={table.name}
-            href={`/admin/database/${table.name}`}
+            key={String(table.name)}
+            href={`/admin/database/${String(table.name)}`}
             className="group rounded-2xl border border-white/10 bg-[#0C0F13] p-6 transition hover:border-accent hover:bg-accent/5"
           >
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-lg font-semibold capitalize text-white group-hover:text-accent">
-                  {table.name}
+                  {String(table.name)}
                 </h3>
                 <p className="mt-2 text-2xl font-bold text-accent">
                   {table.count}

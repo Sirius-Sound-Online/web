@@ -21,24 +21,9 @@ export type UserWithRelations = Prisma.UserGetPayload<{
 export async function getAllUsers() {
   return prisma.user.findMany({
     include: {
-      accounts: {
-        select: {
-          provider: true,
-        },
-      },
-      waitlistEntries: {
-        select: {
-          status: true,
-          createdAt: true,
-        },
-      },
-      orders: {
-        select: {
-          type: true,
-          amount: true,
-          status: true,
-        },
-      },
+      accounts: true,
+      waitlistEntries: true,
+      orders: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -311,7 +296,7 @@ export async function getTableData(tableName: TableName, page = 1, limit = 50) {
   const model = prisma[tableName] as any;
 
   if (!model || typeof model.findMany !== "function") {
-    throw new Error(`Invalid table name: ${tableName}`);
+    throw new Error(`Invalid table name: ${String(tableName)}`);
   }
 
   // Determine orderBy field based on table structure
@@ -335,7 +320,7 @@ export async function getTableData(tableName: TableName, page = 1, limit = 50) {
     model.findMany({
       skip: (page - 1) * limit,
       take: limit,
-      orderBy: getOrderBy(tableName),
+      orderBy: getOrderBy(String(tableName)),
     }),
     model.count(),
   ]);
