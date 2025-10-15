@@ -25,7 +25,7 @@ export async function SiteHeader() {
             alt="Sirius Sound"
             width={36}
             height={36}
-            className="h-9 w-9"
+            className="h-9 w-auto object-contain"
           />
           Sirius Sound
         </Link>

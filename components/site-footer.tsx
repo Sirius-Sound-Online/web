@@ -39,7 +39,7 @@ export function SiteFooter() {
               alt="Sirius Sound"
               width={32}
               height={32}
-              className="h-8 w-8"
+              className="h-8 w-auto object-contain"
             />
             <p className="text-base font-semibold text-white">Sirius Sound</p>
           </div>
