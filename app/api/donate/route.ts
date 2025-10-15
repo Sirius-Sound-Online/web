@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       {
         price_data: {
           currency: "usd",
-          product_data: { name: "Sirius/Serious Sound donation" },
+          product_data: { name: "Sirius Sound donation" },
           unit_amount: amount,
         },
         quantity: 1,

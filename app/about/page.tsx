@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About & contact",
-  description: "Meet the Sirius/Serious Sound team and learn how to get in touch about partnerships or artist demos.",
+  description: "Meet the Sirius Sound team and learn how to get in touch about partnerships or artist demos.",
 };
 
 export default function AboutPage() {
@@ -14,7 +14,7 @@ export default function AboutPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.4em] text-accent">About</p>
           <h1 className="font-display text-4xl text-white">Engineering the next pickup era</h1>
           <p className="max-w-3xl text-base text-zinc-300">
-            Sirius/Serious Sound is a distributed team of pickup designers, circuit modelers, and touring guitar techs. We
+            Sirius Sound is a distributed team of pickup designers, circuit modelers, and touring guitar techs. We
             prototype in Budapest, test in Berlin and Nashville, and assemble production units in Katowice.
           </p>
         </header>

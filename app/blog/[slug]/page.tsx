@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { formatDate } from "@/lib/utils";
 import { MDXContent } from "@/components/mdx-content";
-import { GiscusComments } from "@/components/giscus-comments";
 import { ShareButtons } from "@/components/share-buttons";
 
 interface Params {
@@ -32,7 +31,7 @@ export function generateMetadata({ params }: Params): Metadata {
       description: post.excerpt,
       type: "article",
       url: post.url,
-      locale: post.locale === "ru" ? "ru_RU" : "en_US",
+      locale: "en_US",
       images: post.ogImage ? [{ url: post.ogImage, width: 1200, height: 630, alt: post.title }] : undefined,
     },
     twitter: {
@@ -77,7 +76,7 @@ export default function BlogPostPage({ params }: Params) {
           <div className="flex items-center gap-3 text-sm text-zinc-400">
             <span>{post.author}</span>
             <span aria-hidden>•</span>
-            <span>{formatDate(post.date, post.locale)}</span>
+            <span>{formatDate(post.date)}</span>
           </div>
         </header>
         <div className="prose prose-invert prose-lg mt-10">
@@ -90,7 +89,6 @@ export default function BlogPostPage({ params }: Params) {
           </div>
         </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <GiscusComments locale={post.locale} />
       </article>
     </main>
   );

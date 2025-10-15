@@ -9,7 +9,7 @@ export default function TermsPage() {
         </header>
         <section className="mt-8 space-y-5 text-sm text-zinc-300">
           <p>
-            Sirius/Serious Sound grants you a revocable, non-exclusive, non-transferable license to access this pre-release
+            Sirius Sound grants you a revocable, non-exclusive, non-transferable license to access this pre-release
             hub. Do not reverse engineer private assets, and keep beta firmware within approved rigs.
           </p>
           <p>

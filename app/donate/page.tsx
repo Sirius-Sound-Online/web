@@ -3,7 +3,7 @@ import DonateForm from "@/components/donate-form";
 
 export const metadata: Metadata = {
   title: "Donate",
-  description: "Support Sirius/Serious Sound R&D with one-time contributions via Stripe Checkout.",
+  description: "Support Sirius Sound R&D with one-time contributions via Stripe Checkout.",
 };
 
 export default function DonatePage() {

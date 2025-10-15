@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   if (process.env.EMAIL_FROM) {
     await sendMail({
       to: email,
-      subject: "Confirm your Sirius/Serious Sound waitlist spot",
+      subject: "Confirm your Sirius Sound waitlist spot",
       html: `<p>Thanks for joining. Confirm your email:</p><p><a href="${process.env.NEXTAUTH_URL}/api/waitlist/confirm?token=${token}">Confirm spot</a></p>`
     });
   }

@@ -6,7 +6,7 @@ export default function CommunityGuidelinesPage() {
           <p className="text-xs uppercase tracking-[0.3em] text-accent/80">Community</p>
           <h1 className="font-display text-3xl text-white">Guidelines</h1>
           <p className="text-sm text-zinc-400">
-            We built Sirius/Serious Sound to elevate tone conversations. Keep feedback constructive and inclusive.
+            We built Sirius Sound to elevate tone conversations. Keep feedback constructive and inclusive.
           </p>
         </header>
         <section className="mt-8 space-y-4 text-sm text-zinc-300">

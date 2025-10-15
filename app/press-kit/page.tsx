@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Press kit",
-  description: "Logos, product renders, measurement overviews, and contact for Sirius/Serious Sound press inquiries.",
+  description: "Logos, product renders, measurement overviews, and contact for Sirius Sound press inquiries.",
 };
 
 export default function PressKitPage() {

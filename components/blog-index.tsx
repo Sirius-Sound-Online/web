@@ -12,7 +12,6 @@ type BlogPreview = {
   featureType?: string;
   date: string;
   tags?: string[];
-  locale: string;
 };
 
 export function BlogIndex({ posts }: { posts: BlogPreview[] }) {
@@ -75,7 +74,7 @@ export function BlogIndex({ posts }: { posts: BlogPreview[] }) {
           >
             <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-accent/80">
               <span>{post.featureType ?? "Article"}</span>
-              <span>{formatDate(post.date, post.locale)}</span>
+              <span>{formatDate(post.date)}</span>
             </div>
             <h2 className="font-display text-2xl text-white group-hover:text-accent">{post.title}</h2>
             <p className="text-sm text-zinc-400">{post.excerpt}</p>

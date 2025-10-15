@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = [
   {
@@ -32,7 +33,16 @@ export function SiteFooter() {
     <footer className="border-t border-white/10 bg-[#040506] py-12 text-sm text-white/60">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 sm:grid-cols-[2fr,1fr,1fr,1fr] sm:px-8">
         <div className="space-y-3 text-white/70">
-          <p className="text-base font-semibold text-white">Sirius/Serious Sound</p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/logo.png"
+              alt="Sirius Sound"
+              width={32}
+              height={32}
+              className="h-8 w-auto object-contain"
+            />
+            <p className="text-base font-semibold text-white">Sirius Sound</p>
+          </div>
           <p className="max-w-sm text-sm text-zinc-400">
             Next-generation pickup platform built with hybrid-core flux management. Join the community shaping launch.
           </p>

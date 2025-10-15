@@ -9,7 +9,7 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Immersive pre-release hub",
   description:
-    "Discover the Sirius/Serious Sound pickup architecture, hear the tone lab demos, and join the waitlist before launch.",
+    "Discover the Sirius Sound pickup architecture, hear the tone lab demos, and join the waitlist before launch.",
 };
 
 const story = [

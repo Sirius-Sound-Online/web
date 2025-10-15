@@ -22,32 +22,28 @@ const spaceGrotesk = SpaceGrotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://sirius-sound.example"),
   title: {
-    default: "Sirius/Serious Sound – Next-Gen Guitar Pickups",
-    template: "%s · Sirius/Serious Sound",
+    default: "Sirius Sound – Next-Gen Guitar Pickups",
+    template: "%s · Sirius Sound",
   },
   description:
-    "Pre-release hub for Sirius/Serious Sound pickups: immersive demos, tone lab, roadmap, and community for builders and players.",
+    "Pre-release hub for Sirius Sound Guitar Pickups: immersive demos, tone lab, roadmap, and community for builders and players.",
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/en",
-      ru: "/ru",
-    },
   },
   openGraph: {
     type: "website",
     url: "https://sirius-sound.example",
-    title: "Sirius/Serious Sound – Next-Gen Guitar Pickups",
+    title: "Sirius Sound – Next-Gen Guitar Pickups",
     description:
       "Experience the future of guitar tone. Explore the tone lab, join the waitlist, and shape the roadmap.",
-    siteName: "Sirius/Serious Sound",
+    siteName: "Sirius Sound",
     locale: "en_US",
     images: [
       {
         url: "/images/og-default.svg",
         width: 1200,
         height: 630,
-        alt: "Sirius/Serious Sound pre-release hub",
+        alt: "Sirius Sound pre-release hub",
       },
     ],
   },
@@ -55,15 +51,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@siriussound",
     creator: "@siriussound",
-    title: "Sirius/Serious Sound – The Future of Guitar Tone",
+    title: "Sirius Sound – The Future of Guitar Tone",
     description:
       "Join the pre-release community: interactive tone lab, measured data, roadmap, and pre-orders.",
     images: ["/images/og-default.svg"],
   },
   icons: {
-    icon: "/images/logo-light.svg",
-    shortcut: "/images/logo-light.svg",
-    apple: "/images/logo-light.svg",
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
   },
   manifest: "/manifest.json",
 };
@@ -99,9 +95,9 @@ export default async function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "Sirius/Serious Sound",
+            name: "Sirius Sound",
             url: "https://sirius-sound.example",
-            logo: "https://sirius-sound.example/images/logo-light.svg",
+            logo: "https://sirius-sound.example/images/logo.png",
             sameAs: [
               "https://github.com/Sirius-Sound-Online",
               "https://instagram.com/siriussound"
