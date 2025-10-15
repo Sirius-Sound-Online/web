@@ -15,7 +15,7 @@ export function DisqusComments({ slug, title }: Props) {
     if (window.DISQUS) {
       window.DISQUS.reset({
         reload: true,
-        config: function () {
+        config: function (this: any) {
           this.page.identifier = slug;
           this.page.url = `${window.location.origin}/blog/${slug}`;
           this.page.title = title;
@@ -23,7 +23,7 @@ export function DisqusComments({ slug, title }: Props) {
       });
     } else {
       // Load Disqus for the first time
-      window.disqus_config = function () {
+      window.disqus_config = function (this: any) {
         this.page.url = `${window.location.origin}/blog/${slug}`;
         this.page.identifier = slug;
         this.page.title = title;
