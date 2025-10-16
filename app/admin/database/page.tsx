@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/admin/page-header";
 import { getTableCount, TableName } from "@/lib/admin/data";
+import { DatabaseBackupControls } from "@/components/admin/database-backup-controls";
 
 const TABLES: TableName[] = [
   "user",
@@ -119,6 +120,8 @@ export default async function DatabasePage() {
           </div>
         </div>
       </div>
+
+      <DatabaseBackupControls />
     </div>
   );
 }
