@@ -18,7 +18,7 @@ export default async function AdminLayout({ children }: Props) {
 
   return (
     <div className="min-h-screen bg-[#050608]">
-      <AdminHeader user={session.user} />
+      <AdminHeader user={session.user!} />
 
       <div className="flex">
         <AdminNav />

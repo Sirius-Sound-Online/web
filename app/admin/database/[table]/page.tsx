@@ -38,7 +38,7 @@ export default async function DatabaseTablePage({ params, searchParams }: Props)
   return (
     <div>
       <PageHeader
-        title={`Table: ${tableName}`}
+        title={`Table: ${String(tableName)}`}
         subtitle={`Viewing ${result.total} records`}
         action={
           <Link

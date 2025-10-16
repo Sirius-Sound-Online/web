@@ -80,7 +80,7 @@ export function DatabaseTableView({ tableName, data, total, page, totalPages }: 
 
     try {
       const response = await fetch(
-        `/api/admin/database?table=${tableName}&id=${id}`,
+        `/api/admin/database?table=${String(tableName)}&id=${id}`,
         {
           method: "DELETE",
         }
@@ -221,7 +221,7 @@ export function DatabaseTableView({ tableName, data, total, page, totalPages }: 
           <div className="flex gap-2">
             {page > 1 && (
               <Link
-                href={`/admin/database/${tableName}?page=${page - 1}`}
+                href={`/admin/database/${String(tableName)}?page=${page - 1}`}
                 className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-accent hover:text-accent"
               >
                 Previous
@@ -230,7 +230,7 @@ export function DatabaseTableView({ tableName, data, total, page, totalPages }: 
 
             {page < totalPages && (
               <Link
-                href={`/admin/database/${tableName}?page=${page + 1}`}
+                href={`/admin/database/${String(tableName)}?page=${page + 1}`}
                 className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white/70 transition hover:border-accent hover:text-accent"
               >
                 Next
