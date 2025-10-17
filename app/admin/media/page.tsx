@@ -3,10 +3,11 @@ import { MediaLibrary } from "@/components/admin/media-library";
 import { getMediaFiles } from "@/lib/admin/file-operations";
 
 export default async function MediaPage() {
-  const [images, videos, audio] = await Promise.all([
+  const [images, videos, audio, blogImages] = await Promise.all([
     getMediaFiles("images"),
     getMediaFiles("video"),
     getMediaFiles("audio"),
+    getMediaFiles("blog"),
   ]);
 
   return (
@@ -20,6 +21,7 @@ export default async function MediaPage() {
         initialImages={images}
         initialVideos={videos}
         initialAudio={audio}
+        initialBlogImages={blogImages}
       />
     </div>
   );

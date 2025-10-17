@@ -12,7 +12,7 @@ export type MediaFile = {
   createdAt: Date;
 };
 
-export type MediaCategory = "images" | "video" | "audio";
+export type MediaCategory = "images" | "video" | "audio" | "blog";
 
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 Bytes";

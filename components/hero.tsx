@@ -31,8 +31,7 @@ export function Hero() {
             <span className="text-accent">Hyper-clarity without the hum.</span>
           </h1>
           <p className="max-w-xl text-lg text-zinc-300">
-            Explore the hybrid-core architecture, dive into spectrum plots, compare A/B demos, and join a community of
-            builders helping to ship the first production run.
+            Embark on a journey through the sonic universe of Sirius Sound — where engineering meets emotion — and join a community of builders helping to ship the first production run.
           </p>
           <div className="flex flex-col flex-wrap gap-3 sm:flex-row">
             <Link

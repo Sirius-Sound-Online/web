@@ -11,3 +11,4 @@ prisma/dev.db
 .DS_Store
 .idea
 .vscode
+deploy.sh

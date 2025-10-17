@@ -210,6 +210,156 @@ export async function deletePickupSample(id: string) {
 }
 
 // ============================================
+// ANALYTICS
+// ============================================
+
+export async function getAnalyticsData() {
+  const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  const [
+    totalUsers,
+    usersLast7Days,
+    usersLast30Days,
+    usersWithOAuth,
+    oauthProviders,
+    waitlistEntries,
+    confirmedWaitlist,
+    toneLabTests,
+    completedTests,
+    totalOrders,
+    capturedOrders,
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.user.count({ where: { createdAt: { gte: sevenDaysAgo } } }),
+    prisma.user.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
+    prisma.user.count({ where: { accounts: { some: {} } } }),
+    prisma.account.groupBy({
+      by: ["provider"],
+      _count: { provider: true },
+    }),
+    prisma.waitlistEntry.count(),
+    prisma.waitlistEntry.count({ where: { status: "confirmed" } }),
+    prisma.toneLabTest.count(),
+    prisma.toneLabTest.count({ where: { completed: true } }),
+    prisma.order.count(),
+    prisma.order.count({ where: { status: "captured" } }),
+  ]);
+
+  return {
+    users: {
+      total: totalUsers,
+      last7Days: usersLast7Days,
+      last30Days: usersLast30Days,
+      withOAuth: usersWithOAuth,
+    },
+    oauthProviders: oauthProviders.map((p) => ({
+      provider: p.provider,
+      count: p._count.provider,
+    })),
+    engagement: {
+      waitlistEntries,
+      confirmedWaitlist,
+      toneLabTests,
+      completedTests,
+      totalOrders,
+      capturedOrders,
+    },
+  };
+}
+
+export async function getRevenueData() {
+  const [
+    totalUsers,
+    allOrders,
+    ordersByStatus,
+    preorders,
+    donations,
+    capturedOrders,
+    authorizedOrders,
+    refundedOrders,
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.order.findMany(),
+    prisma.order.groupBy({
+      by: ["status"],
+      _count: { status: true },
+      _sum: { amount: true },
+    }),
+    prisma.order.findMany({ where: { type: "preorder" } }),
+    prisma.order.findMany({ where: { type: "donation" } }),
+    prisma.order.aggregate({
+      _sum: { amount: true },
+      where: { status: "captured" },
+    }),
+    prisma.order.aggregate({
+      _sum: { amount: true },
+      where: { status: "authorized" },
+    }),
+    prisma.order.aggregate({
+      _sum: { amount: true },
+      where: { status: "refunded" },
+    }),
+  ]);
+
+  const totalRevenue = capturedOrders._sum.amount || 0;
+  const preorderRevenue = preorders
+    .filter((o) => o.status === "captured")
+    .reduce((sum, o) => sum + o.amount, 0);
+  const donationRevenue = donations
+    .filter((o) => o.status === "captured")
+    .reduce((sum, o) => sum + o.amount, 0);
+
+  const statusCounts = {
+    captured: 0,
+    authorized: 0,
+    cancelled: 0,
+    refunded: 0,
+  };
+
+  ordersByStatus.forEach((group) => {
+    if (group.status in statusCounts) {
+      statusCounts[group.status as keyof typeof statusCounts] = group._count.status;
+    }
+  });
+
+  return {
+    total: {
+      amount: totalRevenue,
+      formatted: (totalRevenue / 100).toFixed(2),
+    },
+    preorders: {
+      amount: preorderRevenue,
+      formatted: (preorderRevenue / 100).toFixed(2),
+      count: preorders.length,
+    },
+    donations: {
+      amount: donationRevenue,
+      formatted: (donationRevenue / 100).toFixed(2),
+      count: donations.length,
+    },
+    averageOrder: allOrders.length > 0 ? ((totalRevenue / allOrders.length) / 100).toFixed(2) : "0.00",
+    ordersByStatus: statusCounts,
+    capturedAmount: {
+      amount: capturedOrders._sum.amount || 0,
+      formatted: ((capturedOrders._sum.amount || 0) / 100).toFixed(2),
+    },
+    authorizedAmount: {
+      amount: authorizedOrders._sum.amount || 0,
+      formatted: ((authorizedOrders._sum.amount || 0) / 100).toFixed(2),
+    },
+    refundedAmount: {
+      amount: refundedOrders._sum.amount || 0,
+      formatted: ((refundedOrders._sum.amount || 0) / 100).toFixed(2),
+    },
+    totalOrders: allOrders.length,
+    conversionRate: totalUsers > 0 ? Math.round((allOrders.length / totalUsers) * 100) : 0,
+    captureRate: allOrders.length > 0 ? Math.round((statusCounts.captured / allOrders.length) * 100) : 0,
+  };
+}
+
+// ============================================
 // STATISTICS
 // ============================================
 

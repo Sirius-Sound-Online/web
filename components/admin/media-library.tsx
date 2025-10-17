@@ -9,11 +9,12 @@ type Props = {
   initialImages: MediaFile[];
   initialVideos: MediaFile[];
   initialAudio: MediaFile[];
+  initialBlogImages: MediaFile[];
 };
 
-type Category = "images" | "video" | "audio";
+type Category = "images" | "video" | "audio" | "blog";
 
-export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Props) {
+export function MediaLibrary({ initialImages, initialVideos, initialAudio, initialBlogImages }: Props) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Category>("images");
   const [uploading, setUploading] = useState(false);
@@ -22,6 +23,7 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
     images: initialImages,
     video: initialVideos,
     audio: initialAudio,
+    blog: initialBlogImages,
   };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +88,42 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
     alert("Path copied to clipboard!");
   };
 
+  const handleRename = async (oldName: string) => {
+    const newName = prompt("Enter new filename (including extension):", oldName);
+    if (!newName || newName === oldName) return;
+
+    // Validate filename
+    if (!/^[a-zA-Z0-9._-]+$/.test(newName)) {
+      alert("Invalid filename. Only letters, numbers, dots, hyphens, and underscores are allowed.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/admin/media/rename", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: activeTab,
+          oldName,
+          newName,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to rename file");
+      }
+
+      // Wait a moment for cache to clear on server, then reload
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Error renaming file");
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {/* Tabs */}
@@ -120,23 +158,33 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
         >
           Audio ({data.audio.length})
         </button>
+        <button
+          onClick={() => setActiveTab("blog")}
+          className={`flex-1 rounded-xl px-4 py-2 text-sm font-medium transition ${
+            activeTab === "blog"
+              ? "bg-accent/20 text-accent"
+              : "text-white/60 hover:text-white"
+          }`}
+        >
+          Blog Images ({data.blog.length})
+        </button>
       </div>
 
       {/* Upload */}
       <div className="mb-6 rounded-2xl border border-white/10 bg-[#0C0F13] p-6">
         <h3 className="mb-4 text-lg font-semibold text-white">
-          Upload {activeTab === "images" ? "Images" : activeTab === "video" ? "Videos" : "Audio"}
+          Upload {activeTab === "images" ? "Images" : activeTab === "video" ? "Videos" : activeTab === "audio" ? "Audio" : "Blog Images"}
         </h3>
 
         <label className="flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/20 bg-white/5 p-8 transition hover:border-accent hover:bg-accent/5">
           <span className="text-4xl">
-            {activeTab === "images" ? "🖼️" : activeTab === "video" ? "🎥" : "🎵"}
+            {activeTab === "images" || activeTab === "blog" ? "🖼️" : activeTab === "video" ? "🎥" : "🎵"}
           </span>
           <span className="text-sm font-medium text-white">
             Click to upload or drag and drop
           </span>
           <span className="text-xs text-white/50">
-            {activeTab === "images" && "JPG, PNG, WebP, SVG (max 10MB)"}
+            {(activeTab === "images" || activeTab === "blog") && "JPG, PNG, WebP, SVG (max 10MB)"}
             {activeTab === "video" && "MP4, WebM, MOV (max 100MB)"}
             {activeTab === "audio" && "MP3, WAV, OGG (max 50MB)"}
           </span>
@@ -144,7 +192,7 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
             type="file"
             multiple
             accept={
-              activeTab === "images"
+              activeTab === "images" || activeTab === "blog"
                 ? "image/*"
                 : activeTab === "video"
                 ? "video/*"
@@ -172,13 +220,14 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
           >
             {/* Preview */}
             <div className="aspect-video bg-black/40">
-              {activeTab === "images" && (
+              {(activeTab === "images" || activeTab === "blog") && (
                 <Image
-                  src={file.url}
+                  src={`${file.url}?t=${file.createdAt.getTime()}`}
                   alt={file.name}
                   width={400}
                   height={300}
                   className="h-full w-full object-cover"
+                  unoptimized
                 />
               )}
               {activeTab === "video" && (
@@ -202,16 +251,22 @@ export function MediaLibrary({ initialImages, initialVideos, initialAudio }: Pro
             </div>
 
             {/* Actions */}
-            <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/80 opacity-0 transition group-hover:opacity-100">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/80 p-4 opacity-0 transition group-hover:opacity-100">
               <button
                 onClick={() => handleCopyPath(file.url)}
-                className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-black transition hover:bg-accent-600"
+                className="w-full rounded-lg bg-accent px-4 py-2 text-sm font-medium text-black transition hover:bg-accent-600"
               >
                 Copy Path
               </button>
               <button
+                onClick={() => handleRename(file.name)}
+                className="w-full rounded-lg border border-white/50 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                Rename
+              </button>
+              <button
                 onClick={() => handleDelete(file.name)}
-                className="rounded-lg border border-red-500/50 px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
+                className="w-full rounded-lg border border-red-500/50 px-4 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
               >
                 Delete
               </button>

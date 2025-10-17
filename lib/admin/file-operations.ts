@@ -133,7 +133,9 @@ export async function deleteBlogPost(slug: string) {
 // ============================================
 
 export async function getMediaFiles(category: MediaCategory): Promise<MediaFile[]> {
-  const publicDir = path.join(process.cwd(), "public", category);
+  // Map 'blog' category to 'images/blog' path
+  const relativePath = category === "blog" ? path.join("images", "blog") : category;
+  const publicDir = path.join(process.cwd(), "public", relativePath);
 
   try {
     await fs.mkdir(publicDir, { recursive: true });
@@ -144,18 +146,29 @@ export async function getMediaFiles(category: MediaCategory): Promise<MediaFile[
         const filePath = path.join(publicDir, file);
         const stats = await fs.stat(filePath);
 
+        // Skip directories
+        if (stats.isDirectory()) {
+          return null;
+        }
+
+        // Generate correct URL based on category
+        const urlPath = category === "blog" ? `/images/blog/${file}` : `/${category}/${file}`;
+
         return {
           name: file,
           path: filePath,
           size: stats.size,
           type: getFileType(file),
-          url: `/${category}/${file}`,
+          url: urlPath,
           createdAt: stats.birthtime,
         };
       })
     );
 
-    return mediaFiles.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    // Filter out null values (directories) and sort
+    return mediaFiles
+      .filter((file): file is MediaFile => file !== null)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   } catch (error) {
     return [];
   }
@@ -166,7 +179,9 @@ export async function saveMediaFile(
   fileName: string,
   buffer: Buffer
 ): Promise<MediaFile> {
-  const publicDir = path.join(process.cwd(), "public", category);
+  // Map 'blog' category to 'images/blog' path
+  const relativePath = category === "blog" ? path.join("images", "blog") : category;
+  const publicDir = path.join(process.cwd(), "public", relativePath);
   await fs.mkdir(publicDir, { recursive: true });
 
   // Sanitize filename
@@ -185,19 +200,67 @@ export async function saveMediaFile(
 
   const stats = await fs.stat(filePath);
 
+  // Generate correct URL based on category
+  const urlPath = category === "blog" ? `/images/blog/${sanitizedName}` : `/${category}/${sanitizedName}`;
+
   return {
     name: sanitizedName,
     path: filePath,
     size: stats.size,
     type: getFileType(sanitizedName),
-    url: `/${category}/${sanitizedName}`,
+    url: urlPath,
     createdAt: stats.birthtime,
   };
 }
 
 export async function deleteMediaFile(category: MediaCategory, fileName: string) {
-  const filePath = path.join(process.cwd(), "public", category, fileName);
+  // Map 'blog' category to 'images/blog' path
+  const relativePath = category === "blog" ? path.join("images", "blog") : category;
+  const filePath = path.join(process.cwd(), "public", relativePath, fileName);
   await fs.unlink(filePath);
+}
+
+export async function renameMediaFile(
+  category: MediaCategory,
+  oldName: string,
+  newName: string
+) {
+  // Map 'blog' category to 'images/blog' path
+  const relativePath = category === "blog" ? path.join("images", "blog") : category;
+  const publicDir = path.join(process.cwd(), "public", relativePath);
+
+  const oldPath = path.join(publicDir, oldName);
+  const newPath = path.join(publicDir, newName);
+
+  // Check if old file exists
+  try {
+    await fs.access(oldPath);
+  } catch (error) {
+    throw new Error("File not found");
+  }
+
+  // Check if new filename already exists
+  try {
+    await fs.access(newPath);
+    throw new Error("A file with that name already exists");
+  } catch (error) {
+    // File doesn't exist, continue
+    if ((error as any).code !== "ENOENT") {
+      throw error;
+    }
+  }
+
+  // Rename the file
+  await fs.rename(oldPath, newPath);
+
+  // Clear Next.js image cache
+  const cacheDir = path.join(process.cwd(), ".next", "cache", "images");
+  try {
+    await fs.rm(cacheDir, { recursive: true, force: true });
+    console.log("[Media Rename] Cleared Next.js image cache");
+  } catch (error) {
+    console.log("[Media Rename] No cache to clear or error clearing cache:", error);
+  }
 }
 
 // ============================================
