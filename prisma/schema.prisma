@@ -15,10 +15,12 @@ model User {
   image            String?
   role             String   @default("member")
   waitlistPosition Int?
+  queueNumber      Int?
   accounts         Account[]
   sessions         Session[]
   waitlistEntries  WaitlistEntry[]
   orders           Order[]
+  queueEntries     QueueEntry[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
@@ -121,4 +123,26 @@ model ToneLabRating {
   createdAt       DateTime      @default(now())
 
   @@unique([testId, sampleId])
+}
+
+model QueueEntry {
+  id                String    @id @default(cuid())
+  queueNumber       Int       @unique
+  userId            String?
+  user              User?     @relation(fields: [userId], references: [id])
+  email             String
+  stripeSessionId   String?   @unique
+  stripeIntentId    String?
+  status            String    @default("pending_payment") // pending_payment, paid, active, contacted, confirmed, shipped, cancelled
+  depositAmount     Int       @default(10000) // $100 in cents
+  remainingAmount   Int       @default(45000) // $450 in cents
+  telegramUsername  String?
+  telegramInviteSent Boolean  @default(false)
+  pickupConfig      String?   // JSON configuration
+  notes             String?   // Admin notes
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  contactedAt       DateTime?
+  confirmedAt       DateTime?
+  shippedAt         DateTime?
 }
