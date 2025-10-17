@@ -18,6 +18,11 @@ export const ADMIN_NAV_ITEMS = [
     icon: "📋",
   },
   {
+    label: "Queue",
+    href: "/admin/queue",
+    icon: "🎯",
+  },
+  {
     label: "Orders",
     href: "/admin/orders",
     icon: "💳",
