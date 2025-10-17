@@ -14,6 +14,12 @@ export const metadata: Metadata = {
 
 const story = [
   {
+    heading: "Handmade Production",
+    tagline: "Each pickup is individually crafted, not mass-produced.",
+    copy:
+      "Our queue system ensures fair ordering while we scale production. Your $100 deposit secures your place in line, gives you Telegram access for updates, and counts toward the final $550 price. Pre-orders help fund R&D and faster market entry.",
+  },
+  {
     heading: "Problem",
     tagline: "Conventional single coils fight hum and bandwidth trade-offs.",
     copy:

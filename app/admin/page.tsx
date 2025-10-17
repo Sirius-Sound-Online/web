@@ -62,6 +62,17 @@ export default async function AdminDashboard() {
             </a>
 
             <a
+              href="/admin/queue"
+              className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-accent hover:bg-accent/5"
+            >
+              <span className="text-2xl">🎯</span>
+              <div>
+                <p className="font-medium text-white">Manage Queue</p>
+                <p className="text-xs text-white/60">Contact customers & process orders</p>
+              </div>
+            </a>
+
+            <a
               href="/admin/waitlist"
               className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-accent hover:bg-accent/5"
             >

@@ -36,10 +36,10 @@ export function Hero() {
           </p>
           <div className="flex flex-col flex-wrap gap-3 sm:flex-row">
             <Link
-              href="/preorder"
+              href="/join-queue"
               className="group inline-flex items-center gap-3 rounded-full bg-accent px-6 py-3 font-medium text-black transition hover:bg-accent-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              Pre-order (auth hold)
+              Join the Queue — $100
               <span className="text-sm font-normal text-black/70 group-hover:translate-x-1 transition-transform">
                 →
               </span>
@@ -54,7 +54,7 @@ export function Hero() {
               href="#waitlist"
               className="inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 font-medium text-white/70 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              Join waitlist
+              Join email list
             </Link>
           </div>
           <div className="grid max-w-2xl grid-cols-2 gap-4 text-xs text-zinc-400 sm:text-sm">
