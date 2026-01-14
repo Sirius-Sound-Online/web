@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID ?? "",
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET ?? "",
+      allowDangerousEmailAccountLinking: true,
     }),
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID ?? "",
